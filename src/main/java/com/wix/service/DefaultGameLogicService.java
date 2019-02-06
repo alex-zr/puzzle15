@@ -19,7 +19,7 @@ public class DefaultGameLogicService implements GameLogicService {
     @Override
     public void makeMove(int tileNumber, Direction direction) {
         if (tileNumber == 0) {
-            throw new IllegalTailNumber("Impossible to move empty tail");
+            throw new IllegalTailNumber(String.valueOf(tileNumber));
         }
         Optional<Position> currentPosOpt = getPositionByNumber(tileNumber);
         currentPosOpt.orElseThrow(() -> new IllegalTailNumber(String.valueOf(tileNumber)));

@@ -61,7 +61,11 @@ public class ConsoleGameController implements GameController {
                 if (tileNumber < 10) {
                     System.out.print(" ");
                 }
-                System.out.print(tileNumber);
+                if (tileNumber == 0) {
+                    System.out.print(" ");
+                } else {
+                    System.out.print(tileNumber);
+                }
                 if (i != tiles.length - 1) {
                     System.out.print(", ");
                 }
