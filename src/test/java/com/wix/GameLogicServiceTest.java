@@ -1,6 +1,5 @@
 package com.wix;
 
-import com.wix.domain.Direction;
 import com.wix.exception.IllegalMovePosition;
 import com.wix.exception.IllegalTailNumber;
 import com.wix.service.DefaultGameLogicService;
@@ -17,10 +16,10 @@ public class GameLogicServiceTest {
     private static final int BOARD_SIZE = 4;
 
     private final int[][] board = {
-            {1,2,3,4},
-            {5,6,7,8},
-            {9,10,0,12},
-            {13,14,11,15}
+            {1, 2, 3, 4},
+            {5, 6, 7, 8},
+            {9, 10, 0, 12},
+            {13, 14, 11, 15}
     };
 
     @Before
@@ -30,7 +29,7 @@ public class GameLogicServiceTest {
 
     @Test
     public void moveLeftSuccess() {
-        gameLogicService.makeMove(12, Direction.LEFT);
+        gameLogicService.makeMove(12);
         int[][] boardAsMatrix = gameLogicService.getBoardAsMatrix();
 
         assertEquals(12, boardAsMatrix[2][2]);
@@ -39,22 +38,22 @@ public class GameLogicServiceTest {
 
     @Test(expected = IllegalTailNumber.class)
     public void moveLeftFailEmpty() {
-        gameLogicService.makeMove(0, Direction.LEFT);
+        gameLogicService.makeMove(0);
     }
 
     @Test(expected = IllegalMovePosition.class)
     public void moveLeftFailOutOfBounds() {
-        gameLogicService.makeMove(8, Direction.LEFT);
+        gameLogicService.makeMove(8);
     }
 
     @Test(expected = IllegalMovePosition.class)
     public void moveLeftFailToNonEmpty() {
-        gameLogicService.makeMove(14, Direction.LEFT);
+        gameLogicService.makeMove(14);
     }
 
     @Test
     public void moveRightSuccess() {
-        gameLogicService.makeMove(10, Direction.RIGHT);
+        gameLogicService.makeMove(10);
         int[][] boardAsMatrix = gameLogicService.getBoardAsMatrix();
 
         assertEquals(10, boardAsMatrix[2][2]);
@@ -63,22 +62,12 @@ public class GameLogicServiceTest {
 
     @Test(expected = IllegalTailNumber.class)
     public void moveRightFailEmpty() {
-        gameLogicService.makeMove(0, Direction.RIGHT);
-    }
-
-    @Test(expected = IllegalMovePosition.class)
-    public void moveRightFailOutOfBounds() {
-        gameLogicService.makeMove(12, Direction.RIGHT);
-    }
-
-    @Test(expected = IllegalMovePosition.class)
-    public void moveRightFailToNonEmpty() {
-        gameLogicService.makeMove(9, Direction.RIGHT);
+        gameLogicService.makeMove(0);
     }
 
     @Test
     public void moveUpSuccess() {
-        gameLogicService.makeMove(11, Direction.UP);
+        gameLogicService.makeMove(11);
         int[][] boardAsMatrix = gameLogicService.getBoardAsMatrix();
 
         assertEquals(11, boardAsMatrix[2][2]);
@@ -87,26 +76,17 @@ public class GameLogicServiceTest {
 
     @Test(expected = IllegalTailNumber.class)
     public void moveUpFailEmpty() {
-        gameLogicService.makeMove(0, Direction.UP);
+        gameLogicService.makeMove(0);
     }
 
     @Test(expected = IllegalMovePosition.class)
     public void moveUpFailOutOfBounds() {
-        gameLogicService.makeMove(4, Direction.UP);
+        gameLogicService.makeMove(4);
     }
 
-    @Test(expected = IllegalMovePosition.class)
-    public void moveUpFailToNonEmpty() {
-        gameLogicService.makeMove(10, Direction.UP);
-    }
-/*    int[][] board = {
-            {1,2,3,4},
-            {5,6,7,8},
-            {9,10,0,12},
-            {13,14,11,15}*/
     @Test
     public void moveDownSuccess() {
-        gameLogicService.makeMove(7, Direction.DOWN);
+        gameLogicService.makeMove(7);
         int[][] boardAsMatrix = gameLogicService.getBoardAsMatrix();
 
         assertEquals(7, boardAsMatrix[2][2]);
@@ -115,45 +95,40 @@ public class GameLogicServiceTest {
 
     @Test(expected = IllegalTailNumber.class)
     public void moveDownFailEmpty() {
-        gameLogicService.makeMove(0, Direction.DOWN);
+        gameLogicService.makeMove(0);
     }
 
     @Test(expected = IllegalMovePosition.class)
     public void moveDownFailOutOfBounds() {
-        gameLogicService.makeMove(4, Direction.DOWN);
-    }
-
-    @Test(expected = IllegalMovePosition.class)
-    public void moveDownFailToNonEmpty() {
-        gameLogicService.makeMove(10, Direction.DOWN);
+        gameLogicService.makeMove(4);
     }
 
     @Test(expected = IllegalTailNumber.class)
     public void moveDownFailIllegalNumber() {
-        gameLogicService.makeMove(16, Direction.DOWN);
+        gameLogicService.makeMove(16);
     }
 
     @Test
     public void testIsWinSuccess() {
         int[][] winPosition = {
-                {1,2,3,4},
-                {5,6,7,8},
-                {9,10,11,12},
-                {13,14,15,0}
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, 0}
         };
         gameLogicService = new DefaultGameLogicService(winPosition, BOARD_SIZE);
         assertTrue(gameLogicService.isWin());
     }
 
     @Test
-    public void testIsWinFail() {
-        int[][] winPosition = {
-                {1,2,3,4},
-                {5,6,7,8},
-                {9,10,11,12},
-                {13,14,0,15}
+    public void testIsNotWin() {
+        int[][] position = {
+                {1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 0, 15}
         };
-        gameLogicService = new DefaultGameLogicService(winPosition, BOARD_SIZE);
+        gameLogicService = new DefaultGameLogicService(position, BOARD_SIZE);
         assertFalse(gameLogicService.isWin());
     }
 

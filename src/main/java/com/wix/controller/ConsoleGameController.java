@@ -1,6 +1,5 @@
 package com.wix.controller;
 
-import com.wix.domain.Direction;
 import com.wix.exception.IllegalMovePosition;
 import com.wix.exception.IllegalTailNumber;
 import com.wix.service.GameLogicService;
@@ -26,16 +25,8 @@ public class ConsoleGameController implements GameController {
                 System.out.println("Input tile number(1-15)");
                 String tileNumberStr = reader.readLine();
                 int tileNumber = Integer.parseInt(tileNumberStr);
-                System.out.println("Input direction(right, left, up, down)");
-                String directionStr = reader.readLine();
-                Direction direction;
-                try {
-                    direction = Direction.valueOf(directionStr.toUpperCase());
-                } catch (IllegalArgumentException e) {
-                    System.err.println("Illegal direction: " + directionStr);
-                    continue;
-                }
-                gameLogicService.makeMove(tileNumber, direction);
+
+                gameLogicService.makeMove(tileNumber);
 
                 if (gameLogicService.isWin()) {
                     System.out.println("You are win!");
